@@ -1,0 +1,29 @@
+<html>
+  <title>Task Manager</title>
+
+  <body>
+    <h1>Task Manager</h1>
+
+    <form method="POST" action="/add_task">
+      <label for="task">New Task:</label>
+      <input type="text" id="task" name="task" required />
+      <button type="submit">Add Task</button>
+    </form>
+
+    <!-- list of tasks-->
+    <ul>
+      {% for task in tasks %}
+      <li>
+        {% if task.completed %}
+        <s>{{ task.task }}</s> - Completed {% else %} {{ task.task }}
+
+        <form action="/complete_task" method="post" style="display: inline">
+          <input type="hidden" name="task_index" value="{{ loop.index0 }}" />
+          <button type="submit">Complete</button>
+        </form>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
