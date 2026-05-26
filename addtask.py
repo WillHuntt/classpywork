@@ -15,3 +15,14 @@ def add_task():
     tasks.append({'task': task, 'completed': False})
 
     return redirect(url_for('home'))
+
+@app.route('/complete_task', methods=['POST'])
+def complete_task():
+    task_index = int(request.form.get('task_index'))
+
+    tasks[task_index]['completed'] = True
+
+    return redirect(url_for('home'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
