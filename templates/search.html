@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Students</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- Links directly to your centralized home.css file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+
+    <!-- Animated Particle Background Container -->
+    <div class="particle-background">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Main Container Layout -->
+    <div class="menu-container search-container">
+        <h2>Search Student Directory</h2>
+        
+        <!-- Inline Search Form Layout -->
+        <form action="/search" method="POST" class="search-form">
+            <div class="search-input-group">
+                <input type="text" name="search_query" placeholder="Enter ID, First or Last Name" value="{{ query if query is not none else '' }}" required>
+                <button type="submit" class="menu-link search-btn">Search</button>
+            </div>
+        </form>
+
+        <!-- Search Results Section -->
+        {% if rows %}
+            <div class="results-heading">Search Results for "{{ query }}":</div>
+            <div class="table-wrapper">
+                <table class="records-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Address</th>
+                            <th>City</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in rows %}
+                        <tr>
+                            <td>{{ row['StdID'] }}</td>
+                            <td>{{ row['FirstName'] }}</td>
+                            <td>{{ row['LastName'] }}</td>
+                            <td>{{ row['Address'] }}</td>
+                            <td>{{ row['City'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% elif query %}
+            <div class="no-results-msg">No students found matching "{{ query }}".</div>
+        {% endif %}
+
+        <div class="form-actions" style="margin-top: 2rem;">
+            <a href="/" class="back-link">← Go to Home</a>
+        </div>
+    </div>
+
+</body>
+</html>

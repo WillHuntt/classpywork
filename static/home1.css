@@ -1,0 +1,35 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-image: url("images/wp3869309.jpg");
+  background-size: cover;
+}
+
+h1,
+h2 {
+  color: #333;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+form {
+  display: inline-block;
+  margin-top: 20px;
+}
+
+input[type="submit"] {
+  padding: 5px 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+}

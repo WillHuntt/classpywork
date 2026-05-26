@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Coffee Cafe</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='home1.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Welcome to Coffee Cafe</h1>
+    <h2>Menu:</h2>
+    <form action="/order" method="POST">
+      {% for item in menu %}
+      <p>
+        {{ item.name }} - ${{ "%.2f"|format(item.price) }}
+        <label for="quantity_{{ item.id }}">|</label>
+        <input
+          type="number"
+          name="quantity_{{ item.id }}"
+          id="quantity_{{ item.id }}"
+          min="0"
+          value="0"
+        />
+      </p>
+      {% endfor %}
+      <input type="submit" value="Add to Cart" />
+    </form>
+    <br />
+    <a href="/cart">View Cart</a>
+  </body>
+</html>

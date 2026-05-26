@@ -1,0 +1,76 @@
+<!--list.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Records List</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- Links directly to your centralized home.css file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+
+    <!-- Animated Particle Background Container -->
+    <div class="particle-background">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Main Container Layout for Data Display -->
+    <div class="menu-container list-container">
+        <h2>Student Records</h2>
+
+        <!-- Flask Flash Notifications System Banner -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Horizontal scroll wrapper for mobile safety layouts -->
+        <div class="table-wrapper">
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th class="text-center">Update</th>
+                        <th class="text-center">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row["FirstName"] }}</td>
+                        <td>{{ row["LastName"] }}</td>
+                        <td>{{ row["Address"] }}</td>
+                        <td>{{ row["City"] }}</td>
+                        <td class="text-center">
+                            <a href="/GetStudentByID/{{ row[0] }}" class="action-btn edit-btn">Edit</a>
+                        </td>
+                        <td class="text-center">
+                            <a href="/delete/{{ row[0] }}" class="action-btn delete-btn">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-actions" style="margin-top: 2rem;">
+            <a href="/" class="back-link">← Go Back to Home Page</a>
+        </div>
+    </div>
+
+</body>
+</html>

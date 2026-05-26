@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Coffee Cafe - Cart</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='coffeeorder.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Your Cart</h1>
+    {% if orders %}
+    <ul>
+      {% for order in orders %}
+      <li>{{ order[1] }} x {{ order[2] }} - ${{ "%.2f"|format(order[3]) }}</li>
+      {% endfor %}
+    </ul>
+    <h2>Total: ${{ "%.2f"|format(total) }}</h2>
+    <form action="/confirm" method="POST">
+      <input type="submit" value="Confirm Order" />
+    </form>
+    <br />
+    <a href="/clear">Clear Cart</a>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+    <br />
+    <a href="/">Back to Menu</a>
+  </body>
+</html>
