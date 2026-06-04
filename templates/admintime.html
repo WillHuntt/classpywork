@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Admin Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      var sessionTimeout = {{ session_timeout }}; // Session timeout in seconds
+      var timer;
+
+      function startTimer() {
+          timer = setInterval(function() {
+              sessionTimeout--;
+              if (sessionTimeout <= 0) {
+                  clearInterval(timer);
+                  sessionExpired();
+              }
+              updateTimer();
+          }, 1000);
+      }
+
+      function updateTimer() {
+          var minutes = Math.floor(sessionTimeout /60);
+          var seconds = sessionTimeout % 60;
+          var timerText = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+          $('#timer').text(timerText);
+      }
+
+      function sessionExpired() {
+        alert("Your session has expired. Please login again.");
+        window.location.href = "/";
+      }
+      $(document).ready(function() {
+        startTimer();
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Welcome, Admin!</h1>
+    <p>This is the admin page.</p>
+    <p>Session Timeout: <span id="timer"></span></p>
+    <a href="/logout">Logout</a>
+  </body>
+</html>

@@ -40,7 +40,7 @@ def login():
             session["username"] = user[1]
             if user[3] == 1:
                     session['is_admin'] = True
-            return redirect('/')
+            return redirect('/admin')
         else:  
             error = 'Invalid username or password'
             return render_template('signinlogin.html', error=error)
