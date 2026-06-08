@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Weather App</title>
+  </head>
+  <body>
+    <h1>Weather App</h1>
+    <form method="post" action="/">
+      <label for="city">Enter city name:</label>
+      <input type="text" id="city" name="city" required />
+      <button type="submit">Get Weather</button>
+    </form>
+
+    {% if weather_info %}
+    <h2>Weather Information for {{ city }}</h2>
+    <p>{{ weather_info }}</p>
+    {% endif %} {% if forecast_info %}
+    <h2>Forecast Information for {{ city }}</h2>
+    <ul>
+      {% for forecast in forecast_info %}
+      <li>
+        <strong>{{ forecast.date }}</strong>
+        <br />
+        Temperature: {{ forecast.temperature }}
+        <br />
+        Weather: {{ forecast.weather_desc }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </body>
+</html>
