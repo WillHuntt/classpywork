@@ -2,31 +2,55 @@
 <html>
   <head>
     <title>Weather App</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='weather.css') }}"
+    />
   </head>
   <body>
-    <h1>Weather App</h1>
-    <form method="post" action="/">
-      <label for="city">Enter city name:</label>
-      <input type="text" id="city" name="city" required />
-      <button type="submit">Get Weather</button>
-    </form>
+    <div class="container">
+      <h1>🌤 Weather App</h1>
 
-    {% if weather_info %}
-    <h2>Weather Information for {{ city }}</h2>
-    <p>{{ weather_info }}</p>
-    {% endif %} {% if forecast_info %}
-    <h2>Forecast Information for {{ city }}</h2>
-    <ul>
-      {% for forecast in forecast_info %}
-      <li>
-        <strong>{{ forecast.date }}</strong>
-        <br />
-        Temperature: {{ forecast.temperature }}
-        <br />
-        Weather: {{ forecast.weather_desc }}
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
+      <form method="post" action="/" class="weather-form">
+        <label for="city">Enter city name</label>
+        <input
+          type="text"
+          id="city"
+          name="city"
+          placeholder="e.g. Auckland"
+          required
+        />
+        <button type="submit">Get Weather</button>
+      </form>
+
+      {% if weather_info %}
+      <div class="weather-card">
+        <h2>Current Weather in {{ city }}</h2>
+        <p>{{ weather_info }}</p>
+      </div>
+      {% endif %} {% if forecast_info %}
+      <div class="forecast-card">
+        <h2>5-Day Forecast</h2>
+
+        <div class="forecast-grid">
+          {% for forecast in forecast_info %}
+          <div class="forecast-item">
+            <h3>{{ forecast.date }}</h3>
+
+            <p>
+              <strong>🌡 Temperature</strong><br />
+              {{ forecast.temperature }}
+            </p>
+
+            <p>
+              <strong>☁ Weather</strong><br />
+              {{ forecast.weather_desc }}
+            </p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
   </body>
 </html>
